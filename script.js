@@ -7,27 +7,43 @@ function addMessage(text, sender) {
   msg.classList.add("message", sender);
   msg.innerText = text;
   chatWindow.appendChild(msg);
-
-  // Auto-scroll to bottom
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
 // Function to send user message
-function sendMessage() {
+async function sendMessage() {
   const text = userInput.value.trim();
-  if (text === "") return; // Ignore empty input
+  if (text === "") return;
 
-  // Show user message
   addMessage(text, "user");
-
-  // Clear input
   userInput.value = "";
 
-  // TEMP: Dummy romantic reply until backend is ready
-  setTimeout(() => {
-    addMessage("Aww 💕 I love hearing from you 😘", "bot");
-  }, 800);
+  try {
+    const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
+
+    const data = await res.json();
+
+    if (data.reply) {
+      addMessage(data.reply, "bot");
+    } else {
+      addMessage("Oops... LOVI is quiet today 💔", "bot");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    addMessage("Something went wrong 😢", "bot");
+  }
 }
+
+// Send message on Enter key
+userInput.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
 
 // Press Enter key to send
 userInput.addEventListener("keypress", function(e) {
