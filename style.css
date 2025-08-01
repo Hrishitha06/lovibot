@@ -1,0 +1,112 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;  /* 🚀 keeps the page fixed, no scrolling */
+}
+body {
+  font-family: Dancing Script;
+  background: linear-gradient(135deg, #ffb6c1, #ffc0cb, #fff0f5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.chat-container {
+  width: 400px;
+  height: 600px;
+  background: rgba(255,255,255,0.7);
+backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+
+}
+
+.chat-header {
+    background: rgba(255,105,180,0.7);
+backdrop-filter: blur(6px);
+  text-shadow: 0 0 5px rgb(29, 24, 24), 0 0 10px #ff69b4;
+  box-shadow: 0 0 20px #d798b7, 0 0 40px #e0c4d3;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Dancing Script", cursive;
+}
+
+.chat-window {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  font-family: "Dancing Script"; 
+  margin: 8px 0;
+  padding: 10px 14px;
+  border-radius: 20px;
+  max-width: 75%;
+}
+
+.user {
+  align-self: flex-end;
+  background: #ffb6c1;
+}
+
+.bot {
+  align-self: flex-start;
+  background: #ffe4e1;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+}
+
+.chat-input button {
+  background: #ff69b4;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 0 0 20px 0;
+  transition: 0.3s;
+}
+
+.chat-input button:hover {
+  background: #ff1493;
+}
+.float-symbol {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;  /* so you can still click inside chat */
+  z-index: 0;            /* emojis stay behind chat box */
+}
+
+.chat-container {
+  position: relative;    /* so z-index works */
+  z-index: 10;           /* keeps chat box above emojis */
+}
+
+@keyframes rise {
+  0%   { transform: translate(0, 0); opacity: 1; }
+  50%  { transform: translate(30px, -60vh); opacity: 0.7; }
+  100% { transform: translate(-30px, -100vh); opacity: 0.; }
+}
+
